@@ -78,7 +78,7 @@ class ViewController: NSViewController {
         
         // 查找App字段，格式 appName 0x12341238 0x12312 + 124213123
         do{
-            let symbolReg = try NSRegularExpression(pattern: appName! + "\\s*(0x[0-9|a-z|A-Z]*)\\s*(0x[0-9|a-z|A-Z]*)\\s*\\+\\s*(\\d*)", options: .CaseInsensitive)
+            let symbolReg = try NSRegularExpression(pattern: appName! + "\\s+(\\S+)\\s+(\\S+)\\s+\\+\\s+(\\S+)", options: .CaseInsensitive)
             
             while(true){
                 if let result = symbolReg.firstMatchInString(log as String, options: .WithoutAnchoringBounds, range: NSMakeRange(0, log.length)) {
@@ -87,11 +87,21 @@ class ViewController: NSViewController {
                     }
                     // 解析地址
                     let addressStr:NSString = log.substringWithRange(result.rangeAtIndex(1))
-                    let baseStr:NSString = log.substringWithRange(result.rangeAtIndex(2))
+                    var baseStr:NSString = log.substringWithRange(result.rangeAtIndex(2))
+                    let offsetStr:NSString = log.substringWithRange(result.rangeAtIndex(3))
                     // 判断cup类型
                     var cpuStr = "armv7"
                     if(addressStr.length == 18){
                         cpuStr = "arm64"
+                    }
+                    // 基址需要计算
+                    if(baseStr.isEqualToString(appName!)){
+                        var address:UInt64 = 0
+                        var offset:UInt64 = 0
+                        NSScanner(string: addressStr as String).scanHexLongLong(&address)
+                        NSScanner(string: offsetStr as String).scanUnsignedLongLong(&offset)
+                        let base:UInt64 = address - offset
+                        baseStr = NSString(format: "0x%qx", base)
                     }
                     // 解析
                     let output = bash("xcrun", arguments: ["atos","-arch",cpuStr,"-o",symbolPath+"/Contents/Resources/DWARF/"+appName!,"-l",baseStr as String,addressStr as String])

@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -178,7 +179,7 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="y17-Ch-WZH" customClass="NSFontManager"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="113" y="-740"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -188,6 +189,9 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="196" y="240" width="1600" height="1000"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="mEh-aR-PQg"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -195,7 +199,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="805" y="-81"/>
+            <point key="canvasLocation" x="1571" y="-452"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -212,16 +216,16 @@
                                         <rect key="frame" x="0.0" y="0.0" width="1600" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FLP-Nn-Dn1">
-                                                <rect key="frame" x="138" y="15" width="1378" height="22"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="left" placeholderString="文件名格式必须为appName.app.dSYM，建议直接拖拽" drawsBackground="YES" usesSingleLineMode="YES" id="rZc-yj-ohu">
+                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FLP-Nn-Dn1">
+                                                <rect key="frame" x="140" y="15" width="1375" height="22"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="文件名格式必须为appName.app.dSYM，建议直接拖拽" drawsBackground="YES" usesSingleLineMode="YES" id="rZc-yj-ohu">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NbS-Oj-XM6">
-                                                <rect key="frame" x="1525" y="8" width="66" height="32"/>
+                                                <rect key="frame" x="1524" y="8" width="67" height="32"/>
                                                 <buttonCell key="cell" type="push" title="解析" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9GO-zz-Q5J">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -231,7 +235,7 @@
                                                 </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OtV-hb-TtI">
-                                                <rect key="frame" x="13" y="17" width="112" height="17"/>
+                                                <rect key="frame" x="13" y="17" width="114" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="符号文件(可拖拽): " id="aMy-qa-sy9">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -266,15 +270,13 @@
                                                                     <rect key="frame" x="1" y="1" width="803" height="946"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <textView importsGraphics="NO" richText="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="UQd-KS-Cik" customClass="DragFileTextView" customModule="CrashAnalyzer" customModuleProvider="target">
+                                                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="UQd-KS-Cik" customClass="DragFileTextView" customModule="CrashAnalyzer" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="803" height="946"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <color key="backgroundColor" red="0.9137254901960784" green="0.95686274509803915" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <size key="minSize" width="803" height="946"/>
                                                                             <size key="maxSize" width="805" height="10000000"/>
                                                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                            <size key="minSize" width="803" height="946"/>
-                                                                            <size key="maxSize" width="805" height="10000000"/>
                                                                         </textView>
                                                                     </subviews>
                                                                     <color key="backgroundColor" red="0.9137254901960784" green="0.95686274509803915" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -306,15 +308,13 @@
                                                                     <rect key="frame" x="1" y="1" width="792" height="946"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <textView editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="ezb-Nh-Bra" customClass="DragFileTextView" customModule="CrashAnalyzer" customModuleProvider="target">
+                                                                        <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="ezb-Nh-Bra" customClass="DragFileTextView" customModule="CrashAnalyzer" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="792" height="946"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <color key="backgroundColor" red="0.83921568627450982" green="0.90196078431372551" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <size key="minSize" width="792" height="946"/>
                                                                             <size key="maxSize" width="794" height="10000000"/>
                                                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                            <size key="minSize" width="792" height="946"/>
-                                                                            <size key="maxSize" width="794" height="10000000"/>
                                                                         </textView>
                                                                     </subviews>
                                                                     <color key="backgroundColor" red="0.83921568627450982" green="0.90196078431372551" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
@@ -374,7 +374,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="403" y="431"/>
+            <point key="canvasLocation" x="-171" y="201"/>
         </scene>
     </scenes>
 </document>

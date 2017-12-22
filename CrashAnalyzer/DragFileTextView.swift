@@ -9,11 +9,12 @@
 import Cocoa
 
 class DragFileTextView: NSTextView {
-    override func performDragOperation(sender: NSDraggingInfo) -> Bool {
-        if let path = NSURL(fromPasteboard: sender.draggingPasteboard()) {
+
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        if let path = NSURL(from: sender.draggingPasteboard()) {
             do{
-                let content = try NSString(contentsOfURL:path, encoding:NSUTF8StringEncoding)
-                self.string = content as String
+                let content = try String(contentsOf:path.filePathURL!, encoding:String.Encoding.utf8)
+                self.string = content
                 return true
             }catch{
                 return false

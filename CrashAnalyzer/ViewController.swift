@@ -26,39 +26,8 @@ class ViewController: NSViewController {
         self.inputScrollView.syncWithScrollView(self.outputScrollView)
         self.outputScrollView.syncWithScrollView(self.inputScrollView)
     }
-
-    override var representedObject: AnyObject? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
-    func shell(launchPath: String, arguments: [String]) -> String
-    {
-        let task = NSTask()
-        task.launchPath = launchPath
-        task.arguments = arguments
-        
-        let pipe = NSPipe()
-        task.standardOutput = pipe
-        task.standardError = pipe
-        task.launch()
-        
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: NSUTF8StringEncoding)!
-        if output.characters.count > 0 {
-            return output.substringToIndex(output.endIndex.advancedBy(-1))
-            
-        }
-        return output
-    }
     
-    func bash(command: String, arguments: [String]) -> String {
-        let whichPathForCommand = shell("/bin/bash", arguments: [ "-l", "-c", "which \(command)" ])
-        return shell(whichPathForCommand, arguments: arguments)
-    }
-    
-    @IBAction func analysisButtonClick(sender: AnyObject) {
+    @IBAction func analysisButtonClick(_ sender: AnyObject) {
         // 符号表路径
         let symbolPath = self.symbolPathField.stringValue
         if(symbolPath.isEmpty){
@@ -67,46 +36,46 @@ class ViewController: NSViewController {
         let fileUrl = NSURL(fileURLWithPath: symbolPath)
         
         // App名
-        let appName = fileUrl.lastPathComponent?.substringToIndex((fileUrl.lastPathComponent?.rangeOfString(".")?.startIndex)!)
+        let appName = fileUrl.lastPathComponent?.prefix(upTo: (fileUrl.lastPathComponent?.range(of: ".")?.lowerBound)!)
         
         if(appName == nil){
             return
         }
 
         // 崩溃日志
-        let log:NSMutableString = NSMutableString(string: inputTextView.string ?? "")
+        let log:NSMutableString = NSMutableString(string: inputTextView.string)
         
         // 查找App字段，格式 appName 0x12341238 0x12312 + 124213123
         do{
-            let symbolReg = try NSRegularExpression(pattern: appName! + "\\s+(\\S+)\\s+(\\S+)\\s+\\+\\s+(\\S+)", options: .CaseInsensitive)
+            let symbolReg = try NSRegularExpression(pattern: appName! + "\\s+(\\S+)\\s+(\\S+)\\s+\\+\\s+(\\S+)", options: .caseInsensitive)
             
             while(true){
-                if let result = symbolReg.firstMatchInString(log as String, options: .WithoutAnchoringBounds, range: NSMakeRange(0, log.length)) {
+                if let result = symbolReg.firstMatch(in: log as String, options: .withoutAnchoringBounds, range: NSMakeRange(0, log.length)) {
                     if(result.numberOfRanges != 4){
                         break
                     }
                     // 解析地址
-                    let addressStr:NSString = log.substringWithRange(result.rangeAtIndex(1))
-                    var baseStr:NSString = log.substringWithRange(result.rangeAtIndex(2))
-                    let offsetStr:NSString = log.substringWithRange(result.rangeAtIndex(3))
+                    let addressStr:NSString = log.substring(with: result.range(at: 1)) as NSString
+                    var baseStr:NSString = log.substring(with: result.range(at: 2)) as NSString
+                    let offsetStr:NSString = log.substring(with: result.range(at: 3)) as NSString
                     // 判断cup类型
                     var cpuStr = "armv7"
                     if(addressStr.length == 18){
                         cpuStr = "arm64"
                     }
                     // 基址需要计算
-                    if(baseStr.isEqualToString(appName!)){
+                    if(baseStr.isEqual(to: appName!)){
                         var address:UInt64 = 0
                         var offset:UInt64 = 0
-                        NSScanner(string: addressStr as String).scanHexLongLong(&address)
-                        NSScanner(string: offsetStr as String).scanUnsignedLongLong(&offset)
+                        Scanner(string: addressStr as String).scanHexInt64(&address)
+                        Scanner(string: offsetStr as String).scanUnsignedLongLong(&offset)
                         let base:UInt64 = address - offset
                         baseStr = NSString(format: "0x%qx", base)
                     }
                     // 解析
-                    let output = bash("xcrun", arguments: ["atos","-arch",cpuStr,"-o",symbolPath+"/Contents/Resources/DWARF/"+appName!,"-l",baseStr as String,addressStr as String])
+                    let output = bash(command: "xcrun", arguments: ["atos","-arch",cpuStr,"-o",symbolPath+"/Contents/Resources/DWARF/"+appName!,"-l",baseStr as String,addressStr as String])
                     
-                    log.replaceCharactersInRange(result.range, withString: output)
+                    log.replaceCharacters(in: result.range, with: output)
                 }else{
                     break
                 }

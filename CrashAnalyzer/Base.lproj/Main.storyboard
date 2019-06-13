@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -185,7 +185,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="CrashAnalyzer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="CrashAnalyzer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="196" y="240" width="1600" height="1000"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -217,10 +217,10 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FLP-Nn-Dn1">
-                                                <rect key="frame" x="140" y="15" width="1375" height="22"/>
+                                                <rect key="frame" x="140" y="15" width="1299" height="22"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="文件名格式必须为appName.app.dSYM，建议直接拖拽" drawsBackground="YES" usesSingleLineMode="YES" id="rZc-yj-ohu">
                                                     <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
@@ -242,14 +242,23 @@
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tGK-bw-YTg">
+                                                <rect key="frame" x="1452" y="17" width="65" height="18"/>
+                                                <buttonCell key="cell" type="check" title="64 bits" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="9uH-1e-nL4">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="FLP-Nn-Dn1" firstAttribute="leading" secondItem="OtV-hb-TtI" secondAttribute="trailing" constant="15" id="2uh-ed-DfR"/>
+                                            <constraint firstItem="tGK-bw-YTg" firstAttribute="centerY" secondItem="FLP-Nn-Dn1" secondAttribute="centerY" id="7RM-6I-6eo"/>
                                             <constraint firstItem="OtV-hb-TtI" firstAttribute="centerY" secondItem="pA5-aB-YBP" secondAttribute="centerY" id="7cg-s7-w5y"/>
                                             <constraint firstItem="NbS-Oj-XM6" firstAttribute="centerY" secondItem="OtV-hb-TtI" secondAttribute="centerY" id="HtW-ZK-PEh"/>
-                                            <constraint firstItem="NbS-Oj-XM6" firstAttribute="leading" secondItem="FLP-Nn-Dn1" secondAttribute="trailing" constant="15" id="dkC-pq-psI"/>
+                                            <constraint firstItem="tGK-bw-YTg" firstAttribute="leading" secondItem="FLP-Nn-Dn1" secondAttribute="trailing" constant="15" id="bTF-CN-OMW"/>
                                             <constraint firstAttribute="trailing" secondItem="NbS-Oj-XM6" secondAttribute="trailing" constant="15" id="g7T-ce-SSt"/>
                                             <constraint firstItem="OtV-hb-TtI" firstAttribute="leading" secondItem="pA5-aB-YBP" secondAttribute="leading" constant="15" id="tjo-0q-ci0"/>
+                                            <constraint firstItem="NbS-Oj-XM6" firstAttribute="leading" secondItem="tGK-bw-YTg" secondAttribute="trailing" constant="15" id="wC4-Lm-jQX"/>
                                             <constraint firstItem="FLP-Nn-Dn1" firstAttribute="centerY" secondItem="OtV-hb-TtI" secondAttribute="centerY" id="zve-7k-Hi9"/>
                                         </constraints>
                                     </customView>
@@ -273,19 +282,20 @@
                                                                         <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="UQd-KS-Cik" customClass="DragFileTextView" customModule="CrashAnalyzer" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="803" height="946"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <color key="backgroundColor" red="0.9137254901960784" green="0.95686274509803915" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <size key="minSize" width="803" height="946"/>
                                                                             <size key="maxSize" width="805" height="10000000"/>
-                                                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </textView>
                                                                     </subviews>
                                                                     <color key="backgroundColor" red="0.9137254901960784" green="0.95686274509803915" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 </clipView>
-                                                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.17391304347826086" horizontal="YES" id="hYv-d9-JsE">
+                                                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.17391304347826086" horizontal="YES" id="hYv-d9-JsE">
                                                                     <rect key="frame" x="5" y="528" width="478" height="15"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
-                                                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="VRC-bb-jJ9">
+                                                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="VRC-bb-jJ9">
                                                                     <rect key="frame" x="483" y="5" width="15" height="523"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
@@ -311,19 +321,20 @@
                                                                         <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="ezb-Nh-Bra" customClass="DragFileTextView" customModule="CrashAnalyzer" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="792" height="946"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <color key="backgroundColor" red="0.83921568627450982" green="0.90196078431372551" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <size key="minSize" width="792" height="946"/>
                                                                             <size key="maxSize" width="794" height="10000000"/>
-                                                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </textView>
                                                                     </subviews>
                                                                     <color key="backgroundColor" red="0.83921568627450982" green="0.90196078431372551" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                                                                 </clipView>
-                                                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="nk7-wp-7DV">
+                                                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="nk7-wp-7DV">
                                                                     <rect key="frame" x="-100" y="-100" width="478" height="15"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
-                                                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0Lw-G7-iDi">
+                                                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0Lw-G7-iDi">
                                                                     <rect key="frame" x="-100" y="-100" width="15" height="495"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>
@@ -370,6 +381,7 @@
                         <outlet property="outputScrollView" destination="v4C-mp-p1j" id="Xvz-vI-Zzf"/>
                         <outlet property="outputTextView" destination="ezb-Nh-Bra" id="E5c-zl-xNx"/>
                         <outlet property="symbolPathField" destination="FLP-Nn-Dn1" id="bWQ-1n-IUc"/>
+                        <outlet property="use64Bits" destination="tGK-bw-YTg" id="ns0-ac-aYW"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

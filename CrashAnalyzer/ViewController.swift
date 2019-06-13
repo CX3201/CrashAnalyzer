@@ -15,6 +15,7 @@ class ViewController: NSViewController {
     @IBOutlet var outputTextView: DragFileTextView!
     @IBOutlet weak var inputScrollView: SyncScrollView!
     @IBOutlet weak var outputScrollView: SyncScrollView!
+    @IBOutlet weak var use64Bits: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +61,7 @@ class ViewController: NSViewController {
                     let offsetStr:NSString = log.substring(with: result.range(at: 3)) as NSString
                     // 判断cup类型
                     var cpuStr = "armv7"
-                    if(addressStr.length == 18){
+                    if(use64Bits.state == NSControl.StateValue(1)){
                         cpuStr = "arm64"
                     }
                     // 基址需要计算
